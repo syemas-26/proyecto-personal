@@ -1,27 +1,24 @@
-import { comprobarToken } from "../../utils/generateToken.js";
 
-export const validarRole = (validRole) => (req, res, next) => {
+const validRole = (validRol) => (req, res, next) => {
     try {
-        const role = req.role;
+        const role = req.rol;
         if (!role) {
             return res.status(400).json({
                 ok: false,
                 msg: "Unknown role"
             });
         }
-        if (!validRole.includes(role))
+        if (!validRol.includes(rol))
             return res.status(403).json({
                 ok: true,
-                msg: "Access denied"
+                msg: "Access prohibited"
             });
-
         next();
     } catch (error) {
         res.status(400).json({
             ok: true,
-            msg: "Role error"
+            msg: "Error in the role"
         });
     }
 };
-
-
+module.exports={validRole}

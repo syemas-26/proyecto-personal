@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const lessonSchema = new mongoose.Schema ({
     title:{
         type:String,
@@ -14,6 +14,7 @@ const lessonSchema = new mongoose.Schema ({
         type:String,
         required:true
     },
-    timestamps:true
-});
-export default mongoose.model("Lesson", lessonSchema)
+    
+},
+{timestamps:true});
+module.exports = mongoose.model("Lesson", lessonSchema)

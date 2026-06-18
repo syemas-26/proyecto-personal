@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import {password} from "../../utils/password"
+const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
     name:{type:String,
         required:true,
@@ -30,17 +29,9 @@ const userSchema = new mongoose.Schema({
         trim:true,
         enum:["admin","user"],
         default:"user"
-    },
-    timestamps:true
-});
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password"))
-    return;
-  try {
-    this.password = await genHash(this.password);
-  } catch (error) {
-    throw error; 
-  }
-});
+    }
+},
+    {timestamps:true}
+);
 
-export default mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema)

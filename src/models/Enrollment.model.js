@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import User from "./User.model";
-import Course from "./Course.model";
-import Lesson from "./Lesson.model";
+const mongoose = require("mongoose");
+const User = require("./User.model");
+const Course = require("./Course.model");
+const Lesson = require("./Lesson.model");
 const enrollmentSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
@@ -20,4 +20,4 @@ const enrollmentSchema = new mongoose.Schema({
         default:Date.now
     }
 });
-export default mongoose.model("enrollment", enrollmentSchema)
+module.exports = mongoose.model("enrollment", enrollmentSchema)

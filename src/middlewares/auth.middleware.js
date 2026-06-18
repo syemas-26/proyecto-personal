@@ -1,15 +1,28 @@
-import { validationResult } from "express-validator";
+const { checkToken, generateToken } = require("../utils/generateToken");
 
+const validToken = async (req, res, next) => {
+  try {
+    const token = req.header("Authorization")?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({
+        ok: false,
+        msg: "Token not sent"
+      });
+    }
 
-export const validateInputs = (req, res, next) => {
-  const errors = validationResult(req);
+    const result = await checkToken(token);
+    req.id = result.id;
+    req.role = result.role;
 
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
+    const newToken = await generateToken({ id: result.id, role: result.role });
+    req.token = newToken
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
       ok: false,
-      errors: errors.mapped()
+      msg: error.message || "Error in the token"
     });
   }
-
-  next();
-};
+}
+module.exports={validToken}

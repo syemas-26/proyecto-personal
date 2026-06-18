@@ -1,6 +1,6 @@
-import { connect } from "mongoose";
+const { connect } = require("mongoose");
 
-export const dbConnect = async () => {
+const dbConnect = async () => {
   try {
     await connect(process.env.DB_URI);
     console.log("✔️  Connected to the Mongo Database");
@@ -9,3 +9,5 @@ export const dbConnect = async () => {
     throw "❌ Error connecting to the Mongo Database";
   }
 };
+
+module.exports={dbConnect}
