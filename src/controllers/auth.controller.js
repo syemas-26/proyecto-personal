@@ -15,12 +15,13 @@ const signup = async (req, res) => {
             msg:"User already exists"
         });
         const hashedPass = await hashPass(password)
-        const newUser = await new User({name, email, password: hashedPass})
+        const newUser = await new User({name, email, password: hashedPass}).save()
 
         /*there is one thing missing which is hassed password
         with the hassed password create new user
         and then the function i have generate token will work correctly */
-        const {_id: id, role} = await new User({name, email, password}).save();
+        // const {_id: id, role} = await newUser({name, email, password}).save();
+        const {_id: id, role} = await newUser
         const token = await generateToken({id, role})
              res.status(201).json({
                  ok:true,
@@ -52,7 +53,7 @@ const login = async (req,res) =>{
                 msg:'User or password not found'
     })
     //const passMatch = await hashPass({_id:id, role, password: hashPass})
-        const passMatch = bcrypt.compare(password,buscarUser.password)
+        const passMatch = await bcrypt.compare(password,buscarUser.password)
         if (!passMatch)
             return res.status(401).json(
             {

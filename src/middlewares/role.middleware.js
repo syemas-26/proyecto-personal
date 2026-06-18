@@ -1,14 +1,14 @@
 
 const validRole = (validRol) => (req, res, next) => {
     try {
-        const role = req.rol;
+        const role = req.role;
         if (!role) {
             return res.status(400).json({
                 ok: false,
                 msg: "Unknown role"
             });
         }
-        if (!validRol.includes(rol))
+        if (!validRol.includes(role))
             return res.status(403).json({
                 ok: true,
                 msg: "Access prohibited"
