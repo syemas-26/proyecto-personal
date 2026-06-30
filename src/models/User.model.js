@@ -3,6 +3,7 @@ const userSchema = new mongoose.Schema({
     name:{type:String,
         required:true,
         maxLength: 30,
+        minLength: 2,
         trim:true
     },
     email:{
@@ -19,7 +20,6 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true,
-        trim:true,
         minLength:8,
         maxLength:70
     },
@@ -29,9 +29,10 @@ const userSchema = new mongoose.Schema({
         trim:true,
         enum:["admin","user"],
         default:"user"
-    }
+    },
 },
     {timestamps:true}
 );
 
 module.exports = mongoose.model("User", userSchema)
+

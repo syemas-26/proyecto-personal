@@ -1,19 +1,27 @@
+
 const mongoose = require("mongoose");
+const CourseModel = require("./Course.model");
 const lessonSchema = new mongoose.Schema ({
+    
+      courseId:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:CourseModel,
+            required:true
+        }],
     title:{
         type:String,
         required:true,
         maxLength:300
     },
-    index:{
+    description:{
         type:String,
-        rquired:true,
-        trim:true
+        required:true
     },
     content:{
         type:String,
         required:true
     },
+   
     
 },
 {timestamps:true});

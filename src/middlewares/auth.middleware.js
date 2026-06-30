@@ -3,6 +3,7 @@ const { checkToken, generateToken } = require("../utils/generateToken");
 const validToken = async (req, res, next) => {
   try {
     const token = req.header("Authorization")?.split(" ")[1];
+    // console.log(token)
     if (!token) {
       return res.status(401).json({
         ok: false,
@@ -10,7 +11,8 @@ const validToken = async (req, res, next) => {
       });
     }
 
-    const result = await checkToken(token);
+    // const result = await checkToken(token);
+    const result =  await checkToken(token); 
     req.id = result.id;
     req.role = result.role;
 
@@ -26,3 +28,4 @@ const validToken = async (req, res, next) => {
   }
 }
 module.exports={validToken}
+
